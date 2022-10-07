@@ -77,6 +77,7 @@ namespace Excel_Export
                 "Ár (mFt)",
                 "Négyzetméter ár (Ft/m2)"
             };
+
             for (int i = 0; i < headers.Length; i++)
             {
                 xlSheet.Cells[1, 1] = headers[0];
@@ -92,6 +93,13 @@ namespace Excel_Export
                 values[counter, 2] = f.Side;
                 values[counter, 3] = f.District;
                 values[counter, 4] = f.Elevator;
+
+                if (f.Elevator==true)
+                {
+                    values[counter, 4] = "Van";
+                }
+                else values[counter, 4] = "Nincs";
+
                 values[counter, 5] = f.NumberOfRooms;
                 values[counter, 6] = f.FloorArea;
                 values[counter, 7] = f.Price;
@@ -109,7 +117,10 @@ namespace Excel_Export
             headerRange.EntireColumn.AutoFit();
             headerRange.RowHeight = 40;
             headerRange.Interior.Color = Color.LightBlue;
+            //ColumnStyle.color = Color.LightYellow;
             headerRange.BorderAround2(Excel.XlLineStyle.xlContinuous, Excel.XlBorderWeight.xlThick);
+
+
         }
         private string GetCell(int x, int y)
         {
