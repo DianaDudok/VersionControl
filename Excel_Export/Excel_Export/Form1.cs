@@ -24,6 +24,7 @@ namespace Excel_Export
         {
             InitializeComponent();
             LoadData();
+            CreateExcel();
         }
 
         private void LoadData()
@@ -44,7 +45,7 @@ namespace Excel_Export
                 xlSheet = xlWB.ActiveSheet;
 
                 // Tábla létrehozása
-                // CreateTable(); // Ennek megírása a következő feladatrészben következik
+                CreateTable(); // Ennek megírása a következő feladatrészben következik
 
                 // Control átadása a felhasználónak
                 xlApp.Visible = true;
@@ -61,6 +62,20 @@ namespace Excel_Export
                 xlWB = null;
                 xlApp = null;
             }
+        }
+
+        private void CreateTable()
+        {
+            string[] headers = new string[] {
+                "Kód",
+                "Eladó",
+                "Oldal",
+                "Kerület",
+                "Lift",
+                "Szobák száma",
+                "Alapterület (m2)",
+                "Ár (mFt)",
+                "Négyzetméter ár (Ft/m2)"};
         }
     }
 }
