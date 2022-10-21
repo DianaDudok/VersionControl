@@ -19,6 +19,7 @@ namespace Webszolgaltatas_5.het
         {
             InitializeComponent();
             GetExchangeRates();
+            dataGridView1.DataSource = rateDatas;
         }
 
         BindingList<RateData> rateDatas = new BindingList<RateData>();
