@@ -18,15 +18,16 @@ namespace Webszolgaltatas_5.het
         public Form1()
         {
             InitializeComponent();
-            GetExchangeRates();
-            DokumentumFeldolgozas("result");
+            //GetExchangeRates();
+            DokumentumFeldolgozas(GetExchangeRates());
+            Diagram();
             dataGridView1.DataSource = Rates;
         }
 
         BindingList<RateData> Rates = new BindingList<RateData>();
         
 
-        private void GetExchangeRates()
+        private string GetExchangeRates()
         {
             var mnbService = new MNBArfolyamServiceSoapClient();
 
@@ -39,6 +40,8 @@ namespace Webszolgaltatas_5.het
             var response = mnbService.GetExchangeRates(request);
 
             var result = response.GetExchangeRatesResult;
+
+            return result;
         }
         private void DokumentumFeldolgozas(string result) 
         {
@@ -62,6 +65,11 @@ namespace Webszolgaltatas_5.het
                 if (unit != 0)
                     rate.Value = value / unit;
             }
+        }
+
+        private void Diagram()
+        {
+            chartRateData.DataSource = Rates;
         }
     }
 }
