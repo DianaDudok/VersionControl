@@ -23,7 +23,7 @@ namespace Webszolgaltatas_5.het
         }
 
         BindingList<RateData> Rates = new BindingList<RateData>();
-        
+        BindingList<string> Currencies = new BindingList<string>();
 
         private string GetExchangeRates()
         {
@@ -31,9 +31,9 @@ namespace Webszolgaltatas_5.het
 
             var request = new GetExchangeRatesRequestBody()
             {
-                currencyNames = "EUR",
-                startDate = "2020-01-01",
-                endDate = "2020-06-30"
+                currencyNames = comboBox1.SelectedItem.ToString(),
+                startDate = dateTimePicker1.Value.ToString(),
+                endDate = dateTimePicker2.Value.ToString()
             };
             var response = mnbService.GetExchangeRates(request);
 
@@ -86,25 +86,27 @@ namespace Webszolgaltatas_5.het
 
         private void RefreshData()
         {
+            Rates.Clear();
             //GetExchangeRates();
             DokumentumFeldolgozas(GetExchangeRates());
             Diagram();
             dataGridView1.DataSource = Rates;
+            comboBox1.DataSource = Currencies;
         }
 
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
-
+            RefreshData();
         }
 
         private void dateTimePicker2_ValueChanged(object sender, EventArgs e)
         {
-
+            RefreshData();
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            RefreshData();
         }
     }
 }
