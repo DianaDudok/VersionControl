@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using Webszolgaltatas_5.het.MnbServiceReference;
 using Webszolgaltatas_5.het.Entities;
 using System.Xml;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace Webszolgaltatas_5.het
 {
@@ -70,6 +71,20 @@ namespace Webszolgaltatas_5.het
         private void Diagram()
         {
             chartRateData.DataSource = Rates;
+
+            var series = chartRateData.Series[0];
+            series.ChartType = SeriesChartType.Line;
+            series.XValueMember = "Date"; // X-ek az időpontok
+            series.YValueMembers = "Value"; // Y-ok az értékek
+            series.BorderWidth = 2; //adatsor vastagsága kétszeres
+
+            var legend = chartRateData.Legends[0];
+            legend.Enabled = false;
+
+            var chartArea = chartRateData.ChartAreas[0];
+            chartArea.AxisX.MajorGrid.Enabled = false; //Függőleges grid vonalak
+            chartArea.AxisY.MajorGrid.Enabled = false;  // Vízszintes grid vonalak
+            chartArea.AxisY.IsStartedFromZero = false;
         }
     }
 }
