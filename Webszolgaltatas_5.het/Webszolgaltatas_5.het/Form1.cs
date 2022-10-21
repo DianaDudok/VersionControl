@@ -21,6 +21,7 @@ namespace Webszolgaltatas_5.het
             GetExchangeRates();
         }
 
+        BindingList<RateData> rateDatas = new BindingList<RateData>();
         
 
         private void GetExchangeRates()
