@@ -19,10 +19,11 @@ namespace Webszolgaltatas_5.het
         {
             InitializeComponent();
             GetExchangeRates();
-            dataGridView1.DataSource = rateDatas;
+            DokumentumFeldolgozas("result");
+            dataGridView1.DataSource = Rates;
         }
 
-        BindingList<RateData> rateDatas = new BindingList<RateData>();
+        BindingList<RateData> Rates = new BindingList<RateData>();
         
 
         private void GetExchangeRates()
@@ -38,6 +39,29 @@ namespace Webszolgaltatas_5.het
             var response = mnbService.GetExchangeRates(request);
 
             var result = response.GetExchangeRatesResult;
+        }
+        private void DokumentumFeldolgozas(string result) 
+        {
+            var xml = new XmlDocument();
+            xml.LoadXml(result);
+            foreach (XmlElement element in xml.DocumentElement)
+            {
+                var rate = new RateData();
+                Rates.Add(rate);
+
+                // Dátum
+                rate.Date = DateTime.Parse(element.GetAttribute("date"));
+
+                // Valuta
+                var childElement = (XmlElement)element.ChildNodes[0];
+                rate.Currency = childElement.GetAttribute("curr");
+
+                // Érték
+                var unit = decimal.Parse(childElement.GetAttribute("unit"));
+                var value = decimal.Parse(childElement.InnerText);
+                if (unit != 0)
+                    rate.Value = value / unit;
+            }
         }
     }
 }
