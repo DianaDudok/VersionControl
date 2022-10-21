@@ -27,10 +27,6 @@ namespace Webszolgaltatas_5.het
             var result = response.GetCurrenciesResult;
             var xml = new XmlDocument();
             xml.LoadXml(result);
-            foreach (XmlElement item in xml.DocumentElement)
-            {
-
-            }
             Currencies.Add(result);
             comboBox1.DataSource = Currencies;
             RefreshData();
