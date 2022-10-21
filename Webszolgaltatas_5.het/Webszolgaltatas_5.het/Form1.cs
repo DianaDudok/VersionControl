@@ -19,10 +19,7 @@ namespace Webszolgaltatas_5.het
         public Form1()
         {
             InitializeComponent();
-            //GetExchangeRates();
-            DokumentumFeldolgozas(GetExchangeRates());
-            Diagram();
-            dataGridView1.DataSource = Rates;
+            RefreshData();
         }
 
         BindingList<RateData> Rates = new BindingList<RateData>();
@@ -83,8 +80,31 @@ namespace Webszolgaltatas_5.het
 
             var chartArea = chartRateData.ChartAreas[0];
             chartArea.AxisX.MajorGrid.Enabled = false; //Függőleges grid vonalak
-            chartArea.AxisY.MajorGrid.Enabled = false;  // Vízszintes grid vonalak
-            chartArea.AxisY.IsStartedFromZero = false;
+            chartArea.AxisY.MajorGrid.Enabled = false; // Vízszintes grid vonalak
+            chartArea.AxisY.IsStartedFromZero = false;  // Y értékek ne 0-nál kezdődjenek
+        }
+
+        private void RefreshData()
+        {
+            //GetExchangeRates();
+            DokumentumFeldolgozas(GetExchangeRates());
+            Diagram();
+            dataGridView1.DataSource = Rates;
+        }
+
+        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dateTimePicker2_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
