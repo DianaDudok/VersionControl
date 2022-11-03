@@ -69,5 +69,14 @@ namespace M9OH52_6.gyak
             Controls.Add(_nextToy);
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Factory = new CarFactory();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Factory = new BallFactory();
+        }
     }
 }
