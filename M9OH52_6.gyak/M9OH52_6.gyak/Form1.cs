@@ -78,7 +78,7 @@ namespace M9OH52_6.gyak
         {
             Factory = new BallFactory
             {
-                BallColor = button2.BackColor
+                BallColor = button3.BackColor
             };
         }
 
@@ -91,6 +91,15 @@ namespace M9OH52_6.gyak
             if (colorPicker.ShowDialog() != DialogResult.OK)
                 return;
             button.BackColor = colorPicker.Color;
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Factory = new PresentFactory
+            {
+                RibbonColor = button5.BackColor,
+                BoxColor=button6.BackColor
+            };
         }
     }
 }
