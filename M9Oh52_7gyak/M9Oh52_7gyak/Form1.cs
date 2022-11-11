@@ -46,6 +46,14 @@ namespace M9Oh52_7gyak
             MessageBox.Show(nyereségekRendezve[nyereségekRendezve.Count() / 5].ToString());
         }
 
+        private void CreatePortfolio()
+        {
+            Portfolio.Add(new PortfolioItem() { Index = "OTP", Volume = 10 });
+            Portfolio.Add(new PortfolioItem() { Index = "ZWACK", Volume = 10 });
+            Portfolio.Add(new PortfolioItem() { Index = "ELMU", Volume = 10 });
+
+            dataGridView2.DataSource = Portfolio;
+        }
 
 
 
