@@ -94,6 +94,7 @@ namespace M9Oh52_7gyak
                     sw.WriteLine($"{p.Index}; {p.Volume}"); //nem kell to string, ebben a formában nincs rá szükség 
                 }
                 sw.Close();
+
             }
         }
     }
