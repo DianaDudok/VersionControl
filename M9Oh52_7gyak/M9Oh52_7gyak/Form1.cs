@@ -70,7 +70,31 @@ namespace M9Oh52_7gyak
             return value;
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.InitialDirectory = Application.StartupPath; // elérési útvonal ahonnan futtattuk az alkalmazást
+            sfd.Filter = "vesszővel tagolt szöveg (*.csv) | *.csv";
+            sfd.DefaultExt = "csv"; // alap felajánlott mentési kiterjesztés
+            sfd.AddExtension = true; // kiterjesztést ad, ha elfelejtünk
 
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                StreamWriter sw = new StreamWriter(sfd.FileName, false, Encoding.UTF8); //filemname --> teljes elérési útvoalat tartalmazza
+                foreach (var p in Portfolio) //var ha egyértelmű, hogy milyen típus a valami akkor mindegy hogy var vagy msá-e
+                {
+                    /*sw.Write(s.Neptun);
+                    sw.Write(s.Nev);
+                    sw.Write(s.BirthDate);
+                    sw.Write(s.AvarageGrade);
+                    sw.Write(s.IsActive);*/
+
+                    // VAGY
+
+                    sw.WriteLine($"{p.Index}; {p.Volume}"); //nem kell to string, ebben a formában nincs rá szükség 
+                }
+                sw.Close();
+            }
         }
     }
 }
