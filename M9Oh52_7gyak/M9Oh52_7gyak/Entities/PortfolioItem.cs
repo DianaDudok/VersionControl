@@ -10,5 +10,6 @@ namespace M9Oh52_7gyak.Entities
     {
         public string Index { get; set; }
         public decimal Volume { get; set; }
+        a
     }
 }
