@@ -17,7 +17,10 @@ namespace M9Oh52_7gyak
         PortfolioEntities context = new PortfolioEntities();
         List<Tick> Ticks;
 
-        List<PortfolioItem> Portfolio = new List<PortfolioItem>();
+        List<PortfolioItem> Portfolio = new List<PortfolioItem>(); 
+        
+        List<decimal> Nyereségek = new List<decimal>();
+
         public Form1()
         {
             InitializeComponent();
@@ -26,7 +29,7 @@ namespace M9Oh52_7gyak
 
             CreatePortfolio();
 
-            List<decimal> Nyereségek = new List<decimal>();
+           
             int intervalum = 30;
             DateTime kezdőDátum = (from x in Ticks select x.TradingDay).Min();
             DateTime záróDátum = new DateTime(2016, 12, 30);
@@ -73,25 +76,17 @@ namespace M9Oh52_7gyak
         private void button1_Click(object sender, EventArgs e)
         {
             SaveFileDialog sfd = new SaveFileDialog();
-            sfd.InitialDirectory = Application.StartupPath; // elérési útvonal ahonnan futtattuk az alkalmazást
-            sfd.Filter = "vesszővel tagolt szöveg (*.csv) | *.csv";
-            sfd.DefaultExt = "csv"; // alap felajánlott mentési kiterjesztés
-            sfd.AddExtension = true; // kiterjesztést ad, ha elfelejtünk
 
             if (sfd.ShowDialog() == DialogResult.OK)
             {
                 StreamWriter sw = new StreamWriter(sfd.FileName, false, Encoding.UTF8); //filemname --> teljes elérési útvoalat tartalmazza
-                foreach (var p in Portfolio) //var ha egyértelmű, hogy milyen típus a valami akkor mindegy hogy var vagy msá-e
+                sw.WriteLine("Időszak" + ";" + "Nyereség");
+
+                int i = 0   ;
+                foreach (var ny in Nyereség) //var ha egyértelmű, hogy milyen típus a valami akkor mindegy hogy var vagy msá-e
                 {
-                    /*sw.Write(s.Neptun);
-                    sw.Write(s.Nev);
-                    sw.Write(s.BirthDate);
-                    sw.Write(s.AvarageGrade);
-                    sw.Write(s.IsActive);*/
-
-                    // VAGY
-
-                    sw.WriteLine($"{p.Index}; {p.Volume}"); //nem kell to string, ebben a formában nincs rá szükség 
+                    sw.WriteLine(i + ";" + ny); //nem kell to string, ebben a formában nincs rá szükség 
+                    i++;
                 }
                 sw.Close();
 
