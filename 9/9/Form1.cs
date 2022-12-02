@@ -91,6 +91,6 @@ namespace _9
             return deathProbabilities;
         }
 
-
+        Random rng = new Random(1234);
     }
 }
