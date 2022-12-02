@@ -27,7 +27,7 @@ namespace _9
 
         private void Simulation()
         {
-            for (int year = 2005; year <= 2024; year++)
+            for (int year = 2005; year <= numericUpDown1.Value; year++)
             {
                 for (int i = 0; i < Population.Count; i++)
                 {
@@ -36,6 +36,7 @@ namespace _9
                 int nbrOfMales = (from x in Population
                                   where x.Gender == Gender.Male && x.IsAlive
                                   select x).Count();
+
                 int nbrOfFemales = (from x in Population
                                     where x.Gender == Gender.Female && x.IsAlive
                                     select x).Count();
@@ -135,12 +136,56 @@ namespace _9
 
         private void button2_Click(object sender, EventArgs e)
         {
+            NBRoffemale.Clear();
+            NBRofmale.Clear();
+            richTextBox1.Clear();
             Simulation();
         }
+
+        List<Person> NBRofmale = new List<Person>();
+        List<Person> NBRoffemale = new List<Person>();
 
         private void button1_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
+
+            ofd.InitialDirectory = Application.StartupPath; // elérési útvonal ahonnan futtattuk az alkalmazást
+            ofd.Filter = "vesszővel tagolt szöveg (*.csv) | *.csv";
+            ofd.DefaultExt = "csv"; // alap felajánlott mentési kiterjesztés
+            ofd.AddExtension = true; // kiterjesztést ad, ha elfelejtünk
+
+            if (ofd.ShowDialog() != DialogResult.OK) return;
+
+            StreamReader sr = new StreamReader(ofd.FileName, Encoding.Default);
+            while (!sr.EndOfStream)
+            {
+                string[] sor = sr.ReadLine().Split(';'); // darabolás ;-nél
+                Person p = new Person();
+                p.BirthYear = int.Parse(sor[0]);
+                p.Gender = (Gender)Enum.Parse(typeof(Gender), sor[1]);
+            }
+
+                /*s.Neptun = sor[0];
+                s.Nev = sor[1];
+
+                if (string.IsNullOrEmpty(sor[2]))
+                {
+                    s.BirthDate = Convert.ToDateTime(sor[2]);
+                }
+                // nem biztos, hogy sikerül a konvertáslás a datetime-nál a lehetséges null érték miatt
+
+                if (string.IsNullOrEmpty(sor[3]))
+                {
+                    s.AvarageGrade = Convert.ToDecimal(sor[3]);
+                }
+
+                s.IsActive = bool.Parse(sor[4]);
+
+                students.Add(s);*/
+            }
+
+        private void DisplayResult()
+        {
 
         }
     }
