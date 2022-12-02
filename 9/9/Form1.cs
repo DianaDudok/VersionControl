@@ -14,7 +14,9 @@ namespace _9
 {
     public partial class Form1 : Form
     {
-
+        List<Person> Population = new List<Person>();
+        List<BirthProbability> BirthProbabilities = new List<BirthProbability>();
+        List<DeathProbability> DeathProbabilities = new List<DeathProbability>();
         public Form1()
         {
             InitializeComponent();
