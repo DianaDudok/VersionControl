@@ -52,6 +52,25 @@ namespace _9
             }
             return population;
         }
-       
+        public List<BirthProbability> GetBirthProbabilities(string csvpath)
+        {
+            List<BirthProbability> birthProbabilities = new List<BirthProbability>();
+
+            using (StreamReader sr = new StreamReader(csvpath, Encoding.Default))
+            {
+                while (!sr.EndOfStream)
+                {
+                    var line = sr.ReadLine().Split(';');
+                    birthProbabilities.Add(new BirthProbability()
+                    {
+                        Kor = int.Parse(line[0]),
+                        NbrOfChildren = int.Parse(line[1]),
+                        BProbability=double.Parse(line[3])
+                    });
+                }
+            }
+            return birthProbabilities;
+        }
+     
     }
 }
