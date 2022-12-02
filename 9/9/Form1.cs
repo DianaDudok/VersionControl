@@ -20,7 +20,17 @@ namespace _9
         public Form1()
         {
             InitializeComponent();
+            Population=GetPopulation(@"C:\Temp\nép.csv");
+            BirthProbabilities = GetBirthProbabilities(@"C:\Temp\születés.csv");
+            DeathProbabilities = GetDeathProbabilities(@"C:\Temp\halál.csv");
 
+            for (int year = 2005; year <=2024; year++)
+            {
+                for (int i = 0; i < Population.Count; i++)
+                {
+
+                }
+            }
         }
     }
 }
