@@ -28,8 +28,15 @@ namespace _9
             {
                 for (int i = 0; i < Population.Count; i++)
                 {
-
+                    SimSTep(year,Population[i]);
                 }
+                int nbrOfMales = (from x in Population
+                                  where x.Gender == Gender.Male && x.IsAlive
+                                  select x).Count(); 
+                int nbrOfFemales = (from x in Population
+                                  where x.Gender == Gender.Female && x.IsAlive
+                                  select x).Count();
+                Console.WriteLine(string.Format("Év: {0} Fiúk:{1} Lányok:{2}", year, nbrOfMales, nbrOfFemales));
             }
         }
 
@@ -65,7 +72,7 @@ namespace _9
                     {
                         Kor = int.Parse(line[0]),
                         NbrOfChildren = int.Parse(line[1]),
-                        BProbability=double.Parse(line[3])
+                        BProbability=double.Parse(line[2])
                     });
                 }
             }
@@ -84,7 +91,7 @@ namespace _9
                     {
                         Gender = (Gender)Enum.Parse(typeof(Gender), line[0]),
                         Kor = int.Parse(line[1]),
-                        DProbability = double.Parse(line[3])
+                        DProbability = double.Parse(line[2])
                     });
                 }
             }
@@ -92,5 +99,35 @@ namespace _9
         }
 
         Random rng = new Random(1234);
+
+        private void SimSTep(int year, Person person)
+        {
+            if (!person.IsAlive) return;
+
+            byte age = (byte)(year - person.BirthYear);
+
+            double pDeath = (from x in DeathProbabilities
+                             where x.Gender == person.Gender && x.Kor == age
+                             select x.DProbability).FirstOrDefault();
+
+            if (rng.NextDouble() <= pDeath)
+                person.IsAlive = false;
+
+            if (person.IsAlive && person.Gender == Gender.Female)
+            {
+                double pBirth = (from x in BirthProbabilities
+                                 where x.Kor == age
+                                 select x.BProbability).FirstOrDefault();
+
+                if (rng.NextDouble() <= pBirth)
+                {
+                    Person ujszulott = new Person();
+                    ujszulott.BirthYear = year;
+                    ujszulott.NbrOfChildren = 0;
+                    ujszulott.Gender = (Gender)(rng.Next(1, 3));
+                    Population.Add(ujszulott);
+                }
+            }
+        }
     }
 }
