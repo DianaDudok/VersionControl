@@ -20,22 +20,25 @@ namespace _9
         public Form1()
         {
             InitializeComponent();
-            Population=GetPopulation(@"C:\Temp\nép.csv");
+            Population = GetPopulation(@textBox1.Text);
             BirthProbabilities = GetBirthProbabilities(@"C:\Temp\születés.csv");
-            DeathProbabilities = GetDeathProbabilities(@"C:\Temp\halál.csv");
+            DeathProbabilities = GetDeathProbabilities(@"C:\Temp\halál.csv"); 
+        }
 
-            for (int year = 2005; year <=2024; year++)
+        private void Simulation()
+        {
+            for (int year = 2005; year <= 2024; year++)
             {
                 for (int i = 0; i < Population.Count; i++)
                 {
-                    SimSTep(year,Population[i]);
+                    SimSTep(year, Population[i]);
                 }
                 int nbrOfMales = (from x in Population
                                   where x.Gender == Gender.Male && x.IsAlive
-                                  select x).Count(); 
-                int nbrOfFemales = (from x in Population
-                                  where x.Gender == Gender.Female && x.IsAlive
                                   select x).Count();
+                int nbrOfFemales = (from x in Population
+                                    where x.Gender == Gender.Female && x.IsAlive
+                                    select x).Count();
                 Console.WriteLine(string.Format("Év: {0} Fiúk:{1} Lányok:{2}", year, nbrOfMales, nbrOfFemales));
             }
         }
@@ -128,6 +131,16 @@ namespace _9
                     Population.Add(ujszulott);
                 }
             }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Simulation();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
         }
     }
 }
