@@ -72,10 +72,23 @@ namespace M9OH52_10.gyak
             if (winners.Count() > 0)
             {
                 winnerBrain = winners.FirstOrDefault().Brain.Clone();
-                gc.GameOver -= Gc_GameOver;
-                return;
-            }
+                gc.GameOver -= Gc_GameOver; 
+                button1.Visible = true;
+                return; 
+               
+            }            
+           
         }
         Brain winnerBrain = null;
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            gc.ResetCurrentLevel();
+            gc.AddPlayer(winnerBrain.Clone());
+            gc.AddPlayer();
+            ga.Focus();
+            gc.Start(true);
+
+        }
     }
 }
