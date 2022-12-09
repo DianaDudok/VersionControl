@@ -66,7 +66,15 @@ namespace M9OH52_10.gyak
                     gc.AddPlayer(b.Mutate());
             }
             gc.Start();
-
+            var winners = from p in topPerformers
+                          where p.IsWinner
+                          select p;
+            if (winners.Count() > 0)
+            {
+                winnerBrain = winners.FirstOrDefault().Brain.Clone();
+                gc.GameOver -= Gc_GameOver;
+                return;
+            }
         }
         Brain winnerBrain = null;
     }
