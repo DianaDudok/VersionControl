@@ -23,7 +23,26 @@ namespace M9OH52_10.gyak
             ga = gc.ActivateDisplay();
             this.Controls.Add(ga);
 
+            // gc.AddPlayer(); próba játék kódja
+            // gc.Start(true);
 
+            int populationSize = 100;
+            int nbrOfSteps = 10;
+            int nbrOfStepsIncrement = 10;
+            int generation = 1;
+
+            gc.GameOver += Gc_GameOver;
+            for (int i = 0; i < populationSize; i++)
+            {
+                gc.AddPlayer(nbrOfSteps);
+            }
+            gc.Start();
+        }
+
+        private void Gc_GameOver(object sender)
+        {
+            generation++;
+            
         }
     }
 }
